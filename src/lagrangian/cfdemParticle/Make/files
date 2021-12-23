@@ -65,6 +65,7 @@ $(forceModels)/particleVolume/particleVolume.C
 $(forceModels)/scalarGeneralExchange/scalarGeneralExchange.C
 $(forceModels)/SchillerNaumannDrag/SchillerNaumannDrag.C
 $(forceModels)/ShirgaonkarIB/ShirgaonkarIB.C
+$(forceModels)/IBnew/IBnew.C
 $(forceModels)/virtualMassForce/virtualMassForce.C
 $(forceModels)/viscForce/viscForce.C
 $(forceModels)/volWeightedAverage/volWeightedAverage.C
@@ -123,6 +124,8 @@ $(voidFractionModels)/centreVoidFraction/centreVoidFraction.C
 $(voidFractionModels)/dividedVoidFraction/dividedVoidFraction.C
 $(voidFractionModels)/GaussVoidFraction/GaussVoidFraction.C
 $(voidFractionModels)/IBVoidFraction/IBVoidFraction.C
+$(voidFractionModels)/IBVoidFractionSDF/IBVoidFractionSDF.C
+$(voidFractionModels)/IBVoidFractionKempe/IBVoidFractionKempe.C
 $(voidFractionModels)/noVoidFraction/noVoidFraction.C
 $(voidFractionModels)/trilinearVoidFraction/trilinearVoidFraction.C
 $(voidFractionModels)/voidFractionModel/newVoidFractionModel.C

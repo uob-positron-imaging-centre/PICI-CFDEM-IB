@@ -67,7 +67,7 @@ engineSearchIB::engineSearchIB
     engineSearch(dict,sm,typeName),
     zSplit_(readLabel(propsDict_.lookup("zSplit"))),
     xySplit_(readLabel(propsDict_.lookup("xySplit"))),
-    coef_(2.0),
+    coef_(readLabel(propsDict_.lookup("coef"))),
     verbose_(propsDict_.lookupOrDefault<Switch>("verbose", false)),
     numberOfSatellitePoints_((zSplit_-1)*xySplit_ + 2)
 {

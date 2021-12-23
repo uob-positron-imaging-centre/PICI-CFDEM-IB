@@ -28,20 +28,21 @@ Description
     This code is designed to realize coupled CFD-DEM simulations using LIGGGHTS
     and OpenFOAM(R). Note: this code is not part of OpenFOAM(R) (see DISCLAIMER).
 
-    cloud class managing DEM data for CFD-DEM coupling and IB representation
+    drag law for ficticious domain method calculating: sum(mu*nabla*u-laplace*p)
+    contribution from Alice Hager
 
 Class
-    Foam::cfdemCloudIB derived from cfdemCloud
+    IBnew
 
 SourceFiles
-    cfdemCloudIB.C
+    IBnew.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef cfdemCloudIB_H
-#define cfdemCloudIB_H
+#ifndef IBnew_H
+#define IBnew_H
 
-#include "cfdemCloud.H"
+#include "forceModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -49,82 +50,64 @@ namespace Foam
 {
 
 /*---------------------------------------------------------------------------*\
-                           Class cfdemCloudIB Declaration
+                           Class IBnew Declaration
 \*---------------------------------------------------------------------------*/
 
-class cfdemCloudIB
+class IBnew
 :
-    public cfdemCloud
+    public forceModel
 {
-protected:
+private:
+    dictionary propsDict_;
 
-    mutable double **angularVelocities_;
-    label pRefCell_;
-    scalar pRefValue_;
-    
-    mutable double **DEMTorques_;
+    bool verbose_;
 
-    mutable bool haveEvolvedOnce_;
-    mutable bool skipLagrangeToEulerMapping_;
-    mutable bool skipAfter_;
-    mutable int  timeStepsToSkip_;
-    mutable bool calculateTortuosity_;
+    bool twoDimensional_;
 
-    vector flowDir_;
+    double depth_;
 
-    //for refinement - needed to ensure correct probing around the interface
-    volScalarField*     frontMeshRefineField_;
-    bool                frontMeshRefine_;
+    word velFieldName_;
+
+    const volVectorField& U_;
+
+    word pressureFieldName_;
+
+    const volScalarField& p_;
+
+    bool useTorque_;
+
+    word interForceFieldName_;
+
+    const volVectorField& Fs_;
+
+    const volVectorField& FInertial_;
+
+    word densityFieldName_;
+
+    const volScalarField& rho_;
 
 public:
+
+    //- Runtime type information
+    TypeName("IBnew");
+
 
     // Constructors
 
         //- Construct from components
-        cfdemCloudIB
+        IBnew
         (
-            const fvMesh& mesh
+            const dictionary& dict,
+            cfdemCloud& sm
         );
 
     // Destructor
 
-        ~cfdemCloudIB();
+        ~IBnew();
 
 
     // Member Functions
-        void giveDEMdata();
-
-        void getDEMdata();
-
-        bool reAllocArrays() const;
-
-        inline double ** DEMTorques() const;
-    
-        bool evolve(volScalarField&,volScalarField&);
-
-        void calcVelocityCorrection(volScalarField&,volVectorField&,volScalarField&,volScalarField&);
-
-        virtual void setParticleVelocity(volVectorField&);
-
-      // Access
-        vector angularVelocity(int);
-
-        inline double ** angularVelocities() const
-        {
-            return angularVelocities_;
-        };
-        void setInterFace(volScalarField& interFace);   //this field can be used for refinement outside of the cloud
-
-        double getTortuosity(vector dir);
-
-       void setRefinementField(volScalarField* refine_); //this pointer is meant for a field that is used refinement outside of the cloud. can point to the same field as interFace
-        void setFs
-        (
-        //    volVectorField& U_Prev,
-            volVectorField& U,
-            volVectorField& Fs,
-            volScalarField& rUA
-        );
+        void setForce() const;
 };
 
 

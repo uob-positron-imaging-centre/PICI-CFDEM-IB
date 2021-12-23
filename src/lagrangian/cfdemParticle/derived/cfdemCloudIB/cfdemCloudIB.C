@@ -341,6 +341,52 @@ void Foam::cfdemCloudIB::setParticleVelocity
     U.correctBoundaryConditions();
 }
 
+void Foam::cfdemCloudIB::setFs
+(
+//    volVectorField& U_Prev,
+    volVectorField& U,
+    volVectorField& Fs,
+    volScalarField& rUA
+)
+{
+    label cellI=0;
+    vector uParticle(0,0,0);
+    vector rVec(0,0,0);
+    vector velRot(0,0,0);
+    vector angVel(0,0,0);
+    //volVectorField UinP;
+    
+    for(int index=0; index < numberOfParticles(); index++)
+    {
+        for(int subCell=0;subCell<cellsPerParticle()[index][0];subCell++)
+        {
+            //Info << "subCell=" << subCell << endl;
+            cellI = cellIDs()[index][subCell];
+
+            if (cellI >= 0)
+            {
+                // calc particle velocity
+                for(int i=0;i<3;i++) rVec[i]=U.mesh().C()[cellI][i]-position(index)[i];
+                for(int i=0;i<3;i++) angVel[i]=angularVelocities()[index][i];
+                velRot=angVel^rVec;
+                for(int i=0;i<3;i++) uParticle[i] = velocities()[index][i]+velRot[i];
+
+                // impose field velocity
+                //UinP[cellI]=(1-voidfractions_[index][subCell])*uParticle+voidfractions_[index][subCell]*U[cellI];
+
+                // set momentum source term
+                //scalar dtInv = 1.0/U.mesh().time().deltaT();
+                vector uf = U[cellI];
+                // Fs[cellI] = voidfractions_[index]*U.mesh().V()[cellI]*(uf - uParticle)//U.mesh().time().deltaT();
+                //Fs[cellI] = (1 - voidfractions_[index][subCell])*(uf - uParticle)/U.mesh().time().deltaT().value();
+                Fs[cellI] = (1 - voidfractions_[index][subCell])*(uf - uParticle)/rUA[cellI];
+
+            }
+        }
+    }
+    U.correctBoundaryConditions();
+}
+
 vector Foam::cfdemCloudIB::angularVelocity(int index)
 {
     vector vel;

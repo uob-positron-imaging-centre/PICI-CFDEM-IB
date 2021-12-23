@@ -28,20 +28,22 @@ Description
     This code is designed to realize coupled CFD-DEM simulations using LIGGGHTS
     and OpenFOAM(R). Note: this code is not part of OpenFOAM(R) (see DISCLAIMER).
 
-    cloud class managing DEM data for CFD-DEM coupling and IB representation
+    void fraction model for the smooth representation of spheres with 
+    radius > cell length.
+    contribution from Alice Hager
 
 Class
-    Foam::cfdemCloudIB derived from cfdemCloud
+    IBVoidFractionKempe
 
 SourceFiles
-    cfdemCloudIB.C
+    IBVoidFractionKempe.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef cfdemCloudIB_H
-#define cfdemCloudIB_H
+#ifndef IBVoidFractionKempe_H
+#define IBVoidFractionKempe_H
 
-#include "cfdemCloud.H"
+#include "voidFractionModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -49,82 +51,65 @@ namespace Foam
 {
 
 /*---------------------------------------------------------------------------*\
-                           Class cfdemCloudIB Declaration
+                           Class noDrag Declaration
 \*---------------------------------------------------------------------------*/
 
-class cfdemCloudIB
+class IBVoidFractionKempe
 :
-    public cfdemCloud
+    public voidFractionModel
 {
-protected:
 
-    mutable double **angularVelocities_;
-    label pRefCell_;
-    scalar pRefValue_;
-    
-    mutable double **DEMTorques_;
+private:
+        dictionary propsDict_;
 
-    mutable bool haveEvolvedOnce_;
-    mutable bool skipLagrangeToEulerMapping_;
-    mutable bool skipAfter_;
-    mutable int  timeStepsToSkip_;
-    mutable bool calculateTortuosity_;
+        const scalar alphaMin_;          //NP min value of voidFraction
 
-    vector flowDir_;
+        mutable bool alphaLimited_;
 
-    //for refinement - needed to ensure correct probing around the interface
-    volScalarField*     frontMeshRefineField_;
-    bool                frontMeshRefine_;
+        const scalar scaleUpVol_;        //NP scaling radius, keeping volume of particle
+        
+        const scalar sqrtThree_;
 
 public:
+
+    //- Runtime type information
+    TypeName("IBKempe");
+
 
     // Constructors
 
         //- Construct from components
-        cfdemCloudIB
+        IBVoidFractionKempe
         (
-            const fvMesh& mesh
+            const dictionary& dict,
+            cfdemCloud& sm
         );
 
     // Destructor
 
-        ~cfdemCloudIB();
+        ~IBVoidFractionKempe();
 
 
     // Member Functions
-        void giveDEMdata();
+        void setvoidFraction(double** const& ,double**&, double**&, double**&, double**&) const;
 
-        void getDEMdata();
-
-        bool reAllocArrays() const;
-
-        inline double ** DEMTorques() const;
-    
-        bool evolve(volScalarField&,volScalarField&);
-
-        void calcVelocityCorrection(volScalarField&,volVectorField&,volScalarField&,volScalarField&);
-
-        virtual void setParticleVelocity(volVectorField&);
-
-      // Access
-        vector angularVelocity(int);
-
-        inline double ** angularVelocities() const
-        {
-            return angularVelocities_;
-        };
-        void setInterFace(volScalarField& interFace);   //this field can be used for refinement outside of the cloud
-
-        double getTortuosity(vector dir);
-
-       void setRefinementField(volScalarField* refine_); //this pointer is meant for a field that is used refinement outside of the cloud. can point to the same field as interFace
-        void setFs
+        void buildLabelHashSet
         (
-        //    volVectorField& U_Prev,
-            volVectorField& U,
-            volVectorField& Fs,
-            volScalarField& rUA
-        );
+            int index,
+            const vector position,
+            const label cellID,
+            labelHashSet& hashSett,
+            bool          initialInsert
+        ) const;
+        
+        double pointInParticleSDF(int index, vector positionCenter, vector point, double scale) const;
+        double minPeriodicSDF(int index,
+                            vector    cellCentrePosition,
+                            vector    positionCenter,
+                            boundBox  globalBb,
+                            vector&   minPeriodicPos,
+                            vector    dirCheckRange
+                            )const;
 };
 
 
