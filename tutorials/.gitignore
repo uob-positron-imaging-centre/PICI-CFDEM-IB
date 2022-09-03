@@ -66,7 +66,19 @@ core
 lnInclude
 
 # CFD data
+octave/
 processor*/
+polyMesh/
+**/CFD/[0-9]*.[0-9]*/
+**/CFD/[1-9]*/
+*.zip
+*.vtk
+dump*
+*restart*
+post*/
+*.tiff
+*.tif
+*.png
 
 # build folders - anywhere
 linux*Clang*/

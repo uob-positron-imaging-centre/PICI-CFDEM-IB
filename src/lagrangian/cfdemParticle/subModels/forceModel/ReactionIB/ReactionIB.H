@@ -32,15 +32,15 @@ Description
     contribution from Alice Hager
 
 Class
-    IBnew
+    ReactionIB
 
 SourceFiles
-    IBnew.C
+    ReactionIB.C
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef IBnew_H
-#define IBnew_H
+#ifndef ReactionIB_H
+#define ReactionIB_H
 
 #include "forceModel.H"
 
@@ -50,10 +50,10 @@ namespace Foam
 {
 
 /*---------------------------------------------------------------------------*\
-                           Class IBnew Declaration
+                           Class ReactionIB Declaration
 \*---------------------------------------------------------------------------*/
 
-class IBnew
+class ReactionIB
 :
     public forceModel
 {
@@ -89,13 +89,13 @@ private:
 public:
 
     //- Runtime type information
-    TypeName("IBnew");
+    TypeName("ReactionIB");
 
 
     // Constructors
 
         //- Construct from components
-        IBnew
+        ReactionIB
         (
             const dictionary& dict,
             cfdemCloud& sm
@@ -103,7 +103,7 @@ public:
 
     // Destructor
 
-        ~IBnew();
+        ~ReactionIB();
 
 
     // Member Functions

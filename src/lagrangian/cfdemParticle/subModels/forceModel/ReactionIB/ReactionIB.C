@@ -31,7 +31,7 @@ Description
 
 #include "error.H"
 
-#include "IBnew.H"
+#include "ReactionIB.H"
 #include "addToRunTimeSelectionTable.H"
 #include "voidFractionModel.H"
 
@@ -42,12 +42,12 @@ namespace Foam
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
-defineTypeNameAndDebug(IBnew, 0);
+defineTypeNameAndDebug(ReactionIB, 0);
 
 addToRunTimeSelectionTable
 (
     forceModel,
-    IBnew,
+    ReactionIB,
     dictionary
 );
 
@@ -55,7 +55,7 @@ addToRunTimeSelectionTable
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 // Construct from components
-IBnew::IBnew
+ReactionIB::ReactionIB
 (
     const dictionary& dict,
     cfdemCloud& sm
@@ -109,13 +109,13 @@ IBnew::IBnew
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
-IBnew::~IBnew()
+ReactionIB::~ReactionIB()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void IBnew::setForce() const
+void ReactionIB::setForce() const
 {
 
     label cellI;
