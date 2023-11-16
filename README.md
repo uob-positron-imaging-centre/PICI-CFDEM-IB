@@ -31,4 +31,13 @@ T. Kempe, S. Schwarz, J. Fröhlich, Modelling of spheroidal particles in viscous
 
 Zick, A., & Homsy, G.  Stokes flow through periodic arrays of spheres. Journal of Fluid Mechanics, 115(1982), 13-26. doi:10.1017/S0022112082000627.
 
+## Citation
+
+If you use PICI-CFDEM-IB in a publication, please cite the following article:
+
+> Hanqiao Che et al._ "**A novel semi-resolved CFD-DEM method with two-grid mapping: methodology and validation.**" AIChE Journal, 2023.
+> [DOI: 10.22541/au.168930742.28338943/v1].
+
+Also, we ask that you "star" :star: this repository so we can track the number of users who are interested in this project, which is helpful for securing future grant funding.
+
 
