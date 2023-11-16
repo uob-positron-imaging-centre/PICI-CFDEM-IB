@@ -1,10 +1,10 @@
 # UoB Positron Imaging Centre's Improved CFDEM Distribution
 
-This is a modified version of CFDEM with an improved fully resolved CFD-DEM solver.
+This represents a modified iteration of CFDEM, featuring an enhanced fully resolved Computational Fluid Dynamics-Discrete Element Method (CFD-DEM) solver.
 
 **Email**: <chehanqiao@outlook.com>
 
-The solver is developed by combining the framework of CFDEM with the existing methodology proposed by C. Zhang (2018). C. Zhang's code can be found [here](https://github.com/ChenguangZhang/sdfibm). We have carefully considered his algorithm and have adopted what we believe to be a more correct solution.
+The solver has been meticulously crafted by integrating the CFDEM framework with the established methodology introduced by C. Zhang (2018). You can access C. Zhang's code [https://github.com/ChenguangZhang/sdfibm]. Our team has thoroughly examined his algorithm, and we have incorporated what we consider to be a more accurate and refined solution.
 
 ## New submodels :
 ### **Force model**
@@ -38,6 +38,6 @@ If you use PICI-CFDEM-IB in a publication, please cite the following article:
 > Hanqiao Che et al._ "**A novel semi-resolved CFD-DEM method with two-grid mapping: methodology and validation.**" AIChE Journal, 2023.
 > [DOI: 10.22541/au.168930742.28338943/v1].
 
-Also, we ask that you "star" :star: this repository so we can track the number of users who are interested in this project, which is helpful for securing future grant funding.
+Also, we ask that you "star" :star: this repository to help us gauge the level of interest in this project. Your star not only signifies your support but also assists us in tracking user engagement, a crucial factor for securing future grant funding. Your contribution in this regard is highly appreciated.
 
 
