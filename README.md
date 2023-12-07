@@ -16,10 +16,10 @@ The solver has been meticulously crafted by integrating the CFDEM framework with
 ## Solver:
 * **cfdemSolverIBPICI**
 ## Installation:
-Tested with OpenFOAM-5.x only. Details on installation are given on the <www.cfdem.com> website. Just replace the CFDEM folder with this one and build the solver by runing `cfdemCompCFDEM`.
+Compatibility verified with OpenFOAM-5.x exclusively. For installation instructions, please refer to the <www.cfdem.com> website. Simply substitute the existing 'CFDEMcoupling-PUBLIC/' with this version and initiate the solver build by executing the command 'cfdemCompCFDEM'
 ## Examples:
 * **Flow through the ordered packings**  
-A validation case has been added in the folder ./tutorials/. The calculated fluid-particle interaction force can be validated using the existing analytical data by Zick&Homsy (1995). In the tutorial case, simple cubic (SC), body centred cubic (BCC) and face centred cubic (FCC) configurations over a range of overall solid packing fracitons were considered.
+A validation case has been added in the folder ./tutorials/. The calculated fluid-particle interaction force can be validated using the existing analytical data by Zick&Homsy (1995). In the tutorial case, simple cubic (SC), body centred cubic (BCC) and face centred cubic (FCC) configurations over a range of overall solid packing fracitons were considered. Contact me for more tutorial cases.
 ## License:
 
 GPL-3.0
@@ -33,10 +33,10 @@ Zick, A., & Homsy, G.  Stokes flow through periodic arrays of spheres. Journal o
 
 ## Citation
 
-If you use PICI-CFDEM-IB in a publication, please cite the following article:
+If you use PICI-CFDEM-IB in a publication, please cite the following article (the full text is freely accessible):
 
 > Hanqiao Che et al._ "**A novel semi-resolved CFD-DEM method with two-grid mapping: methodology and validation.**" AIChE Journal, 2023.
-> [DOI: 10.22541/au.168930742.28338943/v1].
+> [https://doi.org/10.1002/aic.18321].
 
 Also, we ask that you "star" :star: this repository to help us gauge the level of interest in this project. Your star not only signifies your support but also assists us in tracking user engagement, a crucial factor for securing future grant funding. Your contribution in this regard is highly appreciated.
 
